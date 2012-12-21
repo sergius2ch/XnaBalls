@@ -82,9 +82,9 @@ namespace BallsXNA
             List<int> listY = new List<int>(columns * rows);
             x = field.Left + Radius;
             y = field.Top + Radius;
-            for (int i = 0; i < rows - 1; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < columns - 1; j++)
+                for (int j = 0; j < columns; j++)
                 {
                     listX.Add((int)x);
                     listY.Add((int)y);
@@ -124,7 +124,7 @@ namespace BallsXNA
         /// </summary>
         public void Update()
         {
-            MoveBalls();
+            //MoveBalls();
             CheckBorders();
             CheckCollisions();
         }
