@@ -68,9 +68,9 @@ namespace BallsXNA
             Cursor = Content.Load<Texture2D>("Mouse");
 
             // включаем менеджер логики
-            manager = new Manager(150, BallTex.Width,
-                new Rectangle(0, 0, graphics.PreferredBackBufferWidth,
-                    graphics.PreferredBackBufferHeight));
+            manager = new Manager(100, BallTex.Width,
+                new Rectangle(1, 1, graphics.PreferredBackBufferWidth-1,
+                    graphics.PreferredBackBufferHeight-1));
             // TODO: use this.Content to load your game content here
         }
 

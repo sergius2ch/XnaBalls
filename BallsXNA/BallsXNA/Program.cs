@@ -9,8 +9,8 @@ namespace BallsXNA
         /// </summary>
         static void Main(string[] args)
         {
-            OptionsForm form = new OptionsForm();
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            /*OptionsForm form = new OptionsForm();
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)*/
             using (Game1 game = new Game1())
             {
                 game.Run();

@@ -13,6 +13,7 @@ namespace BallsXNA
     /// </summary>
     class Ball
     {
+        public bool OnEdge = false;
         /// <summary>
         /// координаты шарика
         /// </summary>
@@ -124,7 +125,7 @@ namespace BallsXNA
         /// </summary>
         public void Update()
         {
-            //MoveBalls();
+            MoveBalls();
             CheckBorders();
             CheckCollisions();
         }
@@ -148,21 +149,48 @@ namespace BallsXNA
         {
             for (int i = 0; i < NumberOfBalls; i++)
             {
+                balls[i].OnEdge = false;
                 if (balls[i].x - Radius <= field.Left)
                 { // шарик отскакивает от левой границы
                     balls[i].vx = -balls[i].vx;
+                    if (balls[i].x - Radius < field.Left)
+                    {
+                        float dx = field.Left - (balls[i].x - Radius);
+                        balls[i].x += dx+1;
+                    }
+                    balls[i].OnEdge = true;
                 }
                 if (balls[i].x + Radius >= field.Right)
                 { // шарик отскакивает от правой границы
                     balls[i].vx = -balls[i].vx;
-                }
+                    if (balls[i].x + Radius > field.Right)
+                    {
+                        float dx = (balls[i].x + Radius) - field.Right;
+                        balls[i].x -= dx+1;
+                    }
+                    if (balls[i].OnEdge) return;
+                    balls[i].OnEdge = true;
+                } 
                 if (balls[i].y - Radius <= field.Top)
                 { // шарик отскакивает от верхней границы
                     balls[i].vy = -balls[i].vy;
-                }
+                    if (balls[i].y - Radius < field.Top)
+                    {
+                        float dy = field.Top - (balls[i].y - Radius);
+                        balls[i].y += dy+1;
+                    }
+                    if (balls[i].OnEdge) return;
+                    balls[i].OnEdge = true;
+                } 
                 if (balls[i].y + Radius >= field.Bottom)
                 { // шарик отскакивает от нижней границы
                     balls[i].vy = -balls[i].vy;
+                    if (balls[i].y + Radius > field.Bottom)
+                    {
+                        float dy = (balls[i].y + Radius) - field.Bottom;
+                        balls[i].y -= dy+1;
+                    }
+                    balls[i].OnEdge = true;
                 }
             }
         }
@@ -223,10 +251,16 @@ namespace BallsXNA
                             #region 7) Устраним эффект залипания
                             if (distance < Diameter - 2)
                             {
-                                balls[i].x += ex;
-                                balls[i].y += ey;
-                                balls[j].x -= ex;
-                                balls[j].y -= ey;
+                                if (!balls[i].OnEdge)
+                                {
+                                    balls[i].x += ex;
+                                    balls[i].y += ey;
+                                }
+                                if (!balls[j].OnEdge)
+                                {
+                                    balls[j].x -= ex;
+                                    balls[j].y -= ey;
+                                }
                             }
                             #endregion
                         }
