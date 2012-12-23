@@ -64,11 +64,11 @@ namespace BallsXNA
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            BallTex = Content.Load<Texture2D>("ball");
+            BallTex = Content.Load<Texture2D>("smallball");
             Cursor = Content.Load<Texture2D>("Mouse");
 
             // включаем менеджер логики
-            manager = new Manager(100, BallTex.Width,
+            manager = new Manager(400, BallTex.Width,
                 new Rectangle(1, 1, graphics.PreferredBackBufferWidth-1,
                     graphics.PreferredBackBufferHeight-1));
             // TODO: use this.Content to load your game content here
